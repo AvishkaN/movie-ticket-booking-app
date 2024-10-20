@@ -1,0 +1,39 @@
+<mat-toolbar class="topbar">
+  <button mat-icon-button (click)="toggleMobileNav.emit()" *ngIf="!showToggle">
+    <i-tabler name="menu-2" class="icon-20 d-flex"></i-tabler>
+  </button>
+
+  <div class="d-flex align-items-center"></div>
+
+  <span class="flex-1-auto"></span>
+
+  <button
+    mat-icon-button
+    [matMenuTriggerFor]="profilemenu"
+    aria-label="Notifications"
+    class="m-l-10"
+  >
+    <img
+      src="/assets/images/profile/user-4.jpg"
+      class="rounded-circle object-cover"
+      width="35"
+    />
+  </button>
+  <mat-menu
+    #profilemenu="matMenu"
+    xPosition="before"
+    class="topbar-dd cardWithShadow"
+  >
+    <!-- <button mat-menu-item routerLink="/profile">
+      <mat-icon class="d-flex align-items-center"
+        ><i-tabler name="user" class="icon-18 d-flex"></i-tabler></mat-icon
+      >My Profile
+    </button> -->
+
+    <div class="p-x-12 m-t-12">
+      <a mat-flat-button color="primary" class="w-100" (click)="logOut()"
+        >Logout</a
+      >
+    </div>
+  </mat-menu>
+</mat-toolbar>

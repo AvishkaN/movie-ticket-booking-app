@@ -1,0 +1,154 @@
+<div
+  class="blank-layout-container justify-content-center align-items-center bg-light-primary"
+>
+  <div
+    class="position-relative row w-100 h-100 bg-gredient justify-content-center"
+  >
+    <div class="col-lg-4 d-flex align-items-center">
+      <mat-card class="cardWithShadow boxed-auth">
+        <mat-card-content class="p-32">
+          <div class="text-center">
+            <a [routerLink]="['/movies']">
+              <img
+                src="./assets/images/site/main-logo-transparent-bg.png"
+                class="align-middle m-2 logo"
+                alt="logo"
+              />
+            </a>
+          </div>
+
+          <div class="row m-t-24 custom-row">
+            <div class="col-12">
+              <button
+                mat-stroked-button=""
+                class="w-100 mdc-button mdc-button--outlined mat-mdc-outlined-button mat-unthemed mat-mdc-button-base"
+                mat-ripple-loader-class-name="mat-mdc-button-ripple"
+                (click)="loginWithGoogle()"
+              >
+                <span
+                  class="mat-mdc-button-persistent-ripple mdc-button__ripple"
+                ></span
+                ><span class="mdc-button__label"
+                  ><div class="d-flex align-items-center">
+                    <img
+                      src="/assets/images/svgs/google-icon.svg"
+                      alt="google"
+                      width="16"
+                      class="m-r-8"
+                    />
+                    Sign in with Google
+                  </div></span
+                ><span class="mat-mdc-focus-indicator"></span
+                ><span class="mat-mdc-button-touch-target"></span
+                ><span class="mat-ripple mat-mdc-button-ripple"></span>
+              </button>
+            </div>
+          </div>
+
+          <div class="or-border m-t-30">
+            <ng-container>sign in with</ng-container>
+          </div>
+
+          <ng-container>
+            <form
+              role="form"
+              class="m-t-30"
+              [formGroup]="rForm"
+              (ngSubmit)="loginUser()"
+            >
+              <mat-label class="mat-subtitle-2 f-s-14 f-w-600 m-b-12 d-block"
+                >Email</mat-label
+              >
+              <mat-form-field
+                appearance="outline"
+                class="w-100"
+                color="primary"
+              >
+                <input
+                  matInput
+                  placeholder="Enter Email"
+                  type="text"
+                  formControlName="email"
+                />
+
+                <mat-error
+                  *ngIf="
+                    !rForm.controls['email'].valid &&
+                    rForm.controls['email'].touched
+                  "
+                  >Valid email is required</mat-error
+                >
+              </mat-form-field>
+
+              <!-- password -->
+              <mat-label class="mat-subtitle-2 f-s-14 f-w-600 m-b-12 d-block"
+                >Password</mat-label
+              >
+
+              <mat-form-field
+                appearance="outline"
+                class="w-100"
+                color="primary"
+              >
+                <input
+                  matInput
+                  [type]="password_eye_icon ? 'text' : 'password'"
+                  formControlName="password"
+                  placeholder="Enter password"
+                />
+
+                <i
+                  class="cursor-pointer font-0-9-5 fa"
+                  [ngClass]="{
+                    ' fa-eye ': password_eye_icon,
+                    ' fa-eye-slash ': !password_eye_icon
+                  }"
+                  aria-hidden="true"
+                  (click)="password_eye_icon = !password_eye_icon"
+                ></i>
+
+                <mat-error
+                  *ngIf="
+                    !rForm.controls['password'].valid &&
+                    rForm.controls['password'].touched
+                  "
+                  >Password is required</mat-error
+                >
+              </mat-form-field>
+
+              <button
+                type="submit"
+                mat-flat-button
+                color="primary"
+                class="w-100"
+                [disabled]="!rForm.valid"
+              >
+                Sign In
+              </button>
+
+              <!-- input -->
+            </form>
+            <span class="d-block f-w-500 text-center m-t-24">
+              <a
+                [routerLink]="['/authentication/signup']"
+                class="text-decoration-none text-primary f-w-500 f-s-14"
+              >
+                Create an account</a
+              >
+            </span>
+          </ng-container>
+        </mat-card-content>
+      </mat-card>
+    </div>
+  </div>
+</div>
+
+<!-- <div class="overly-loading-bg">
+  <div class="loader"></div>
+</div> -->
+
+<div class="overlay" *ngIf="loading">
+  <div class="overlay__inner">
+    <div class="overlay__content"><span class="loader"></span></div>
+  </div>
+</div>

@@ -1,0 +1,191 @@
+<div
+  class="blank-layout-container justify-content-center align-items-center bg-light-primary h-100"
+>
+  <div
+    class="position-relative row w-100 h-100 bg-gredient justify-content-center"
+  >
+    <div class="col-md-12 col-lg-4 d-flex align-items-center mt-4 ml-3">
+      <mat-card class="cardWithShadow boxed-auth">
+        <mat-card-content class="p-32">
+          <div class="text-center">
+            <a [routerLink]="['/movies']">
+              <img
+                src="./assets/images/site/main-logo-transparent-bg.png"
+                class="align-middle m-2 logo"
+                alt="logo"
+              />
+            </a>
+          </div>
+
+          <div class="or-border m-t-30">sign up with</div>
+
+          <form
+            role="form"
+            class="m-t-30"
+            [formGroup]="rForm"
+            (ngSubmit)="registerUser()"
+          >
+            <mat-label class="mat-subtitle-2 f-s-14 f-w-600 m-b-12 d-block"
+              >Name</mat-label
+            >
+            <mat-form-field appearance="outline" class="w-100" color="primary">
+              <input
+                matInput
+                placeholder="Enter Name"
+                type="text"
+                formControlName="name"
+                data-placement="top"
+              />
+
+              <mat-error
+                *ngIf="
+             !rForm.controls['name'].valid &&
+                    rForm.controls['name'].touched &&
+                    !rForm.controls['name'].errors?.['pattern']
+              "
+                >Name is required</mat-error
+              >
+              <mat-error
+                *ngIf="
+              !rForm.controls['name'].valid &&
+                    rForm.controls['name'].touched &&
+                    rForm.controls['name'].errors?.['pattern']
+              "
+              >
+                Special characters and numbers not allowed
+              </mat-error>
+            </mat-form-field>
+
+            <mat-label class="mat-subtitle-2 f-s-14 f-w-600 m-b-12 d-block"
+              >Email</mat-label
+            >
+            <mat-form-field appearance="outline" class="w-100" color="primary">
+              <input
+                matInput
+                placeholder="Enter Email"
+                type="text"
+                formControlName="email"
+                data-placement="top"
+              />
+
+              <mat-error
+                *ngIf="
+                  !rForm.controls['email'].valid &&
+                  rForm.controls['email'].touched
+                "
+                >Valid email is required</mat-error
+              >
+            </mat-form-field>
+
+            <!-- password -->
+            <mat-label class="mat-subtitle-2 f-s-14 f-w-600 m-b-12 d-block"
+              >Password</mat-label
+            >
+
+            <mat-form-field appearance="outline" class="w-100" color="primary">
+              <input
+                matInput
+                [type]="password_eye_icon ? 'text' : 'password'"
+                formControlName="password"
+                placeholder="enter password"
+              />
+
+              <i
+                class="cursor-pointer font-0-9-5 fa"
+                [ngClass]="{
+                  ' fa-eye ': password_eye_icon,
+                  ' fa-eye-slash ': !password_eye_icon
+                }"
+                aria-hidden="true"
+                (click)="password_eye_icon = !password_eye_icon"
+              ></i>
+
+              <mat-error
+                *ngIf="
+                rForm.controls['password']?.errors?.['required'] &&
+                rForm.controls['password'].touched
+              "
+                >Password is required</mat-error
+              >
+              <mat-error
+                *ngIf="
+                 !rForm.controls['password']?.errors?.['required'] &&
+                rForm.controls['password']?.errors?.['minlength'] &&
+                rForm.controls['password'].touched
+              "
+                >Password needs to have at least 8 characters</mat-error
+              >
+            </mat-form-field>
+
+            <!-- confirm password -->
+            <mat-label class="mat-subtitle-2 f-s-14 f-w-600 m-b-12 d-block"
+              >Confirm Password</mat-label
+            >
+
+            <mat-form-field appearance="outline" class="w-100" color="primary">
+              <input
+                matInput
+                [type]="confirm_password_eye_icon ? 'text' : 'password'"
+                formControlName="confirmPassword"
+                placeholder="enter confirm password"
+              />
+
+              <i
+                class="cursor-pointer font-0-9-5 fa"
+                [ngClass]="{
+                  ' fa-eye ': confirm_password_eye_icon,
+                  ' fa-eye-slash ': !confirm_password_eye_icon
+                }"
+                aria-hidden="true"
+                (click)="confirm_password_eye_icon = !confirm_password_eye_icon"
+              ></i>
+
+              <mat-error
+                *ngIf="
+                                 rForm.get('confirmPassword')?.errors?.['isError'] &&
+                  rForm.controls['confirmPassword'].touched
+
+                "
+              >
+                Confirm password not match with the password</mat-error
+              >
+            </mat-form-field>
+
+            <mat-label
+              class="d-block f-s-14 f-w-600 m-b-12 mat-subtitle-2"
+              *ngIf="ref_id"
+              >referral code : {{ ref_id }}
+            </mat-label>
+
+            <button
+              type="submit"
+              mat-flat-button
+              color="primary"
+              class="w-100"
+              [disabled]="!rForm.valid"
+            >
+              Sign up
+            </button>
+          </form>
+
+          <span class="d-block f-w-500 text-center m-t-24"
+            >Already have an Account?
+
+            <a
+              [routerLink]="['/authentication/login']"
+              class="text-decoration-none text-primary f-w-500 f-s-14"
+            >
+              Sign In</a
+            >
+          </span>
+        </mat-card-content>
+      </mat-card>
+    </div>
+  </div>
+</div>
+
+<div class="overlay" *ngIf="loading">
+  <div class="overlay__inner">
+    <div class="overlay__content"><span class="loader"></span></div>
+  </div>
+</div>

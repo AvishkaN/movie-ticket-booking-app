@@ -1,0 +1,188 @@
+<div class="display-flex mb-3 mr-4 mt-3">
+  <i
+    class="fa fa-times ml-auto font-1-4 cursor-pointer"
+    aria-hidden="true"
+    data-toggle="tooltip"
+    data-placement="top"
+    title="Close"
+    (click)="closeModel()"
+  ></i>
+</div>
+<h1 class="font-1-6 header-title text-center mb-4">Payment Details</h1>
+
+<div class="font-1 mb-4 pl-4 pr-4">
+  <div class="row">
+    <div class="col-sm-5">
+      <img src="assets/images/card-img.png" class="w-100" alt="" />
+    </div>
+
+    <div class="col-sm-7">
+      <div class="form-wrapper">
+        <form role="form" [formGroup]="rForm">
+          <!-- Card Number -->
+          <div class="">
+            <mat-form-field appearance="outline" class="w-100" color="primary">
+              <input
+                matInput
+                placeholder="Enter card number"
+                type="text"
+                formControlName="cardNumber"
+              />
+              <mat-error
+                *ngIf="
+                  !rForm.controls['cardNumber'].valid &&
+                  rForm.controls['cardNumber']?.errors?.['pattern'] &&
+                  rForm.controls['cardNumber'].touched
+                "
+              >
+                Card number must be 13-19 digits long
+              </mat-error>
+            </mat-form-field>
+          </div>
+
+          <!-- Card Holder Name -->
+          <div class="">
+            <mat-form-field appearance="outline" class="w-100" color="primary">
+              <input
+                matInput
+                placeholder="Enter card holder name"
+                type="text"
+                formControlName="cardHolderName"
+              />
+              <mat-error
+                *ngIf="
+                  rForm.controls['cardHolderName'].hasError('required') &&
+                  rForm.controls['cardHolderName'].touched
+                "
+              >
+                Card holder name is required
+              </mat-error>
+              <mat-error
+                *ngIf="
+                  rForm.controls['cardHolderName'].hasError('minlength') &&
+                  rForm.controls['cardHolderName'].touched
+                "
+              >
+                Name must be at least 2 characters long
+              </mat-error>
+              <mat-error
+                *ngIf="
+                  rForm.controls['cardHolderName'].hasError('maxlength') &&
+                  rForm.controls['cardHolderName'].touched
+                "
+              >
+                Name cannot be more than 50 characters long
+              </mat-error>
+              <mat-error
+                *ngIf="
+                  rForm.controls['cardHolderName'].hasError('pattern') &&
+                  rForm.controls['cardHolderName'].touched
+                "
+              >
+                Name can only contain letters and spaces
+              </mat-error>
+            </mat-form-field>
+          </div>
+
+          <!-- Card Expiry Date (Month and Year) -->
+          <div class="row">
+            <div class="col-4 pr-0">
+              <div class="">
+                <mat-form-field
+                  appearance="outline"
+                  class="w-100"
+                  color="primary"
+                >
+                  <input
+                    matInput
+                    placeholder="MM"
+                    type="text"
+                    formControlName="cardMonth"
+                  />
+                  <mat-error
+                    *ngIf="
+                      !rForm.controls['cardMonth'].valid &&
+                      rForm.controls['cardMonth']?.errors?.['pattern'] &&
+                      rForm.controls['cardMonth'].touched
+                    "
+                  >
+                    Month must be between 01 and 12
+                  </mat-error>
+                </mat-form-field>
+              </div>
+            </div>
+            <div class="col-4 pr-0">
+              <div class="">
+                <mat-form-field
+                  appearance="outline"
+                  class="w-100"
+                  color="primary"
+                >
+                  <input
+                    matInput
+                    placeholder="YYYY"
+                    type="text"
+                    formControlName="cardYear"
+                  />
+                  <mat-error
+                    *ngIf="
+                      !rForm.controls['cardYear'].valid &&
+                      rForm.controls['cardYear']?.errors?.['min'] &&
+                      rForm.controls['cardYear'].touched
+                    "
+                  >
+                    Year must be the current year or later
+                  </mat-error>
+                </mat-form-field>
+              </div>
+            </div>
+            <div class="col-4">
+              <div class="">
+                <mat-form-field
+                  appearance="outline"
+                  class="w-100"
+                  color="primary"
+                >
+                  <input
+                    matInput
+                    placeholder="CVC"
+                    type="text"
+                    formControlName="cardCvc"
+                  />
+                  <mat-error
+                    *ngIf="
+                      !rForm.controls['cardCvc'].valid &&
+                      rForm.controls['cardCvc']?.errors?.['pattern'] &&
+                      rForm.controls['cardCvc'].touched
+                    "
+                  >
+                    CVC must be 3 or 4 digits
+                  </mat-error>
+                </mat-form-field>
+              </div>
+            </div>
+          </div>
+
+          <!-- Submit Button -->
+          <hr />
+          <button
+            type="submit"
+            mat-flat-button
+            color="primary"
+            class="w-100"
+            (click)="createTicket()"
+            [disabled]="!rForm.valid"
+          >
+            Proceed to Checkout
+          </button>
+        </form>
+      </div>
+
+      <div class="d-flex justify-content-center mb-3 mt-3">
+        <img src="assets/images/card-providers.png" class="col-5" alt="" />
+      </div>
+    </div>
+  </div>
+</div>
+
+<app-loader *ngIf="loading"></app-loader>
